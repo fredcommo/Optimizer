@@ -1,6 +1,6 @@
 # Optimizer
 
-#### Choose the best classifier with optimeed hyperparameters, by using the optuna package
+#### Choose the best classifier with its optimezed hyperparameters, by using the optuna package
 #### See _requirements.txt_ for dependencies
 
 ---
