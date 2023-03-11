@@ -40,7 +40,8 @@ def objective(trial):
     classifier_obj = eval(classifier_optimizer)(trial)
 
     # Scoring method:
-    score = model_selection.cross_val_score(classifier_obj, X, y, n_jobs=-1, cv=5)
+    X_train, _, y_train, _ = train_test_split(X, y, test_size=0.25, random_state=123)
+    score = model_selection.cross_val_score(classifier_obj, X_train, y_train, n_jobs=-1, cv=5)
 
     # Return accuracy
     return score.mean()
