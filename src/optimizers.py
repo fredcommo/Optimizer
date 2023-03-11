@@ -4,8 +4,6 @@
 # Importing the Packages:
 import functools
 
-# import optuna
-
 from xgboost import XGBClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
@@ -26,7 +24,7 @@ def optimizer(model):
 ############################################
 # Set trial parameters for each model:
 @optimizer(LogisticRegression)
-def logReg_optimizer(trial):
+def LogisticRegression_optimizer(trial):
     params = {
         "C": trial.suggest_float("logReg_C", 1e-3, 1e3, log=True),
         "max_iter": 20000
@@ -34,7 +32,7 @@ def logReg_optimizer(trial):
     return params
 
 @optimizer(RandomForestClassifier)
-def RF_optimizer(trial):
+def RandomForestClassifier_optimizer(trial):
     params = {
         "n_estimators": trial.suggest_int("rf_n_estimators", 2, 32, log=True),
         "max_depth": trial.suggest_int("rf_max_depth", 10, 1000)
@@ -42,7 +40,7 @@ def RF_optimizer(trial):
     return params
 
 @optimizer(XGBClassifier)
-def xgb_optimizer(trial):
+def XGBClassifier_optimizer(trial):
     params = {
         "n_estimators": trial.suggest_int('xgb_n_estimators', 10, 2000),
         "max_depth": trial.suggest_int('xgb_max_depth', 2, 8),
