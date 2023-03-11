@@ -1,7 +1,7 @@
 # Optimizer
 
-#### Choose the best classifier with its optimized hyperparameters, by using the optuna package
-#### See _requirements.txt_ for dependencies
+#### Choose the best classifier with its optimized hyperparameters, by using the [optuna](https://optuna.org/) package.
+#### See _requirements.txt_ for all required packages
 
 ---
 #### Clone this repo, then on promp run:
