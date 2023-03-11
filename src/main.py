@@ -30,7 +30,7 @@ def clean_param_names(params):
 
 ############################################
 # Define an objective function to be maximized:
-def objective(trial):
+def objective(trial, X_train, y_train):
 
     model_list = ["LogisticRegression", "RandomForestClassifier", "XGBClassifier"]
 
@@ -40,15 +40,15 @@ def objective(trial):
     classifier_obj = eval(classifier_optimizer)(trial)
 
     # Scoring method:
-    X_train, _, y_train, _ = train_test_split(X, y, test_size=0.25, random_state=123)
+    # X_train, _, y_train, _ = train_test_split(X, y, test_size=0.25, random_state=123)
     score = model_selection.cross_val_score(classifier_obj, X_train, y_train, n_jobs=-1, cv=5)
 
     # Return accuracy
     return score.mean()
 
 
-def run_best_model(X, y, best_classifier, best_params):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=123)
+def run_best_model(X_train, X_test, y_train, y_test, best_classifier, best_params):
+    # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=123)
 
     print(f"Running {best_classifier} as best classifier")
     print("Params:")
@@ -65,10 +65,15 @@ def run_best_model(X, y, best_classifier, best_params):
 
 
 def main(X, y):
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=123)
+
     ############################################
     # Running optimizer
+    # to add args to the objective: Wrap the objective inside a lambda and call objective inside it
+    objective_func = lambda trial: objective(trial, X_train, y_train)
     study = optuna.create_study(direction="maximize")
-    study.optimize(objective, n_trials=100, show_progress_bar=True)
+    study.optimize(objective_func, n_trials=100, show_progress_bar=True)
 
     best_value = study.best_value
     best_params = study.best_params
@@ -88,7 +93,7 @@ def main(X, y):
 
     ############################################
     # Running the best model
-    classifier = run_best_model(X, y, best_classifier, best_params)
+    classifier = run_best_model(X_train, X_test, y_train, y_test, best_classifier, best_params)
 
     return classifier
 
