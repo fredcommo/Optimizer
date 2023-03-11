@@ -1,4 +1,4 @@
-# Original code at:
+# Inspired by:
 # https://towardsdatascience.com/exploring-optuna-a-hyper-parameter-framework-using-logistic-regression-84bd622cd3a5
 
 # Importing the Packages:
@@ -64,7 +64,7 @@ def run_best_model(X_train, X_test, y_train, y_test, best_classifier, best_param
     return classifier
 
 
-def main(X_train, X_test, y_train, y_test, n_trials=10):
+def main(X_train, X_test, y_train, y_test, n_trials=5):
 
     ############################################
     # Running optimizer
