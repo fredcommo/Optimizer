@@ -95,6 +95,18 @@ def main(X_train, X_test, y_train, y_test, n_trials=5):
 
     return classifier
 
+def plot(df):
+    plt.figure(figsize=(12, 8))
+
+    scatter = plt.scatter(df.x1, df.x2, c=df.y.astype('category').cat.codes, s=100, alpha=0.5)
+    handles, labels = scatter.legend_elements()
+
+    plt.xlabel("PC 1", fontsize=18)
+    plt.ylabel("PC 2", fontsize=18)
+    plt.legend(handles=handles, labels=labels, title="Status", fontsize=16)
+
+    plt.show()
+
 
 if __name__ == "__main__":
 
@@ -119,14 +131,4 @@ if __name__ == "__main__":
 
     new_x = pca.transform(X_test)
     df = pd.DataFrame({"x1": new_x[:,0], "x2": new_x[:,1], "y": prediction})
-
-    plt.figure(figsize=(12, 8))
-
-    scatter = plt.scatter(df.x1, df.x2, c=df.y.astype('category').cat.codes, s=100, alpha=0.5)
-    handles, labels = scatter.legend_elements()
-
-    plt.xlabel("PC 1", fontsize=18)
-    plt.ylabel("PC 2", fontsize=18)
-    plt.legend(handles=handles, labels=labels, title="Status", fontsize=16)
-
-    plt.show()
+    plot(df)
