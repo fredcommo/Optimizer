@@ -50,13 +50,14 @@ def objective(trial, X_train, y_train, model_list):
     return score.mean()
 
 
-def optimize(X_train, y_train, n_trials=5):
+def optimize(X_train, y_train,
+             model_list=["LogisticRegression", "RandomForestClassifier", "XGBClassifier"],
+             n_trials=5):
     """
     Run optimizer
     note: to pass args to the objective func, wrap it inside a lambda func + args
     and call the lambda func in study.optimize()
     """
-    model_list = ["LogisticRegression", "RandomForestClassifier", "XGBClassifier"]
     objective_func = lambda trial: objective(trial, X_train, y_train, model_list)
     study = optuna.create_study(direction="maximize")
     study.optimize(objective_func, n_trials=n_trials, show_progress_bar=True)

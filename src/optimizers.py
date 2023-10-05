@@ -1,7 +1,4 @@
-# Original code at:
-# https://towardsdatascience.com/exploring-optuna-a-hyper-parameter-framework-using-logistic-regression-84bd622cd3a5
-
-# Importing the Packages:
+# Import Packages:
 import functools
 
 from xgboost import XGBClassifier
@@ -47,6 +44,8 @@ def XGBClassifier_optimizer(trial):
         "colsample_bylevel": trial.suggest_float("xgb_colsample_bylevel", 0.1, 1),
         "learning_rate": trial.suggest_float("xgb_learning_rate", 0.01, 0.1),
         "alpha": trial.suggest_float("xgb_alpha", 0.1, 1),
-        "lambda": trial.suggest_float("xgb_lambda", 0.1, 1)
+        "lambda": trial.suggest_float("xgb_lambda", 0.1, 1),
+        "use_label_encoder": False,
+        "eval_metric": "error"
         }
     return params
