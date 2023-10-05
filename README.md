@@ -10,4 +10,4 @@
 python src/main.py
 ```
 
-#### _note: no unit-test implemented_
+#### _note: no unit-test implemented yet!_
